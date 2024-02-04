@@ -1,0 +1,67 @@
+#docker compose file
+version: "3.3"
+
+services:
+  nginx:
+    restart: always
+    depends_on:
+      - wordpress
+    build:
+      context: ./requirements/nginx
+      dockerfile: Dockerfile
+    image: nginx:soohlee
+    container_name: nginx
+    ports:
+      - '443:443'
+    networks:
+      - soohlee-network
+    volumes:
+      - wordpressDB:/var/www/html
+  wordpress:
+    restart: always
+    depends_on:
+      - mariadb
+    build:
+      context: ./requirements/wordpress
+      dockerfile: Dockerfile
+    image: wordpress:soohlee
+    container_name: wordpress
+    env_file:
+      - .env
+    networks:
+      - soohlee-network
+    volumes:
+      - wordpressDB:/var/www/html
+  mariadb:
+    restart: always
+    build:
+      context: ./requirements/mariadb
+      dockerfile: Dockerfile
+    image: mariadb:soohlee
+    container_name: mariadb
+    env_file:
+      - .env
+    networks:
+      - soohlee-network
+    volumes:
+      - mariadbDB:/var/lib/mysql
+
+volumes:
+  wordpressDB:
+    driver_opts:
+      type: none
+      # device: /home/soohlee/data/wordpress
+      # 개인 놑북일시 로컬볼륨 임시경로
+      device: /Users/soohalee/Documents/DockerVolume/wordpressDB
+      o: bind
+  mariadbDB:
+    driver_opts:
+      type: none
+      # device: /home/soohlee/data/wordpress
+      # 개인 놑북일시 로컬볼륨 임시경로
+      device: /Users/soohalee/Documents/DockerVolume/mariadbDB
+      o: bind
+
+networks:
+  soohlee-network:
+    driver: bridge
