@@ -16,7 +16,7 @@ until mysql -h "$mariadb_host" -P "$mariadb_port" -u "$MYSQL_USER" -p"$MYSQL_PAS
 done
 >&2 echo "MariaDB is up - executing command"
 
-
+# apt-get install -y sendmail
 # <wordpress 유저 추가>
 cd /var/www/html/wordpress
 wp core install --allow-root --url=$DOMAIN_NAME --title=$WP_TITLE --admin_user=$WP_ADMIN --admin_password=$WP_ADMIN_PASSWORD --admin_email=$WP_ADMIN_EMAIL
@@ -53,16 +53,5 @@ else
     fi
 fi
 
-# # functions.php 파일에 코드 추가
-# if [ -f "$functions_php_file" ]; then
-#     echo "Adding code to $functions_php_file..."
-#     echo "$code_to_add" >> "$functions_php_file"
-#     echo "Code added successfully."
-# else
-#     echo "Error: $functions_php_file not found."
-# fi
-
-
 # <php-fpm 실행>
 exec "$@"
-# /usr/sbin/php-fpm7.4 -F

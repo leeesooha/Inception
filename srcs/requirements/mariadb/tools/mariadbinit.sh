@@ -12,10 +12,5 @@ alter user '$MYSQL_ROOT'@'localhost' identified by '$MYSQL_ROOT_PASSWORD';
 flush privileges;
 EOF
 fi
-echo "\
---------------------
-@mariadb ready
-@port:3306
---------------------"
-# exec mysqld --datadir=/var/lib/mysql
+
 exec "$@"

@@ -16,9 +16,7 @@ RUN apt-get update && apt-get install -y \
 	psmisc \
 	systemctl \
 	tree
-	# php-mbstring
-	# php-cli \
-	# php-xml
+
 # 컨테이너 설정 shell script 복사
 COPY ./tools /myscript
 # nginx구성파일 복사
@@ -41,5 +39,4 @@ COPY ./conf/wp-config.php /var/www/html/wordpress
 
 ENTRYPOINT ["/usr/bin/dumb-init","--","/myscript/initwordpress.sh"]
 
-# CMD ["/myscript/initwordpress.sh"]
 CMD ["/usr/sbin/php-fpm7.4","-F"]
