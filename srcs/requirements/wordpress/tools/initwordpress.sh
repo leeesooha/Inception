@@ -10,11 +10,13 @@ mariadb_port="3306"
 # MariaDB에 대한 테스트 쿼리
 test_query="SELECT 1;"
 # MariaDB 컨테이너가 준비될 때까지 대기
+# >&2 표준에러로 리다이렉트 
+# until은 while과 반대로 false일때 계속 반복하는 loop syntax이다.
 until mysql -h "$mariadb_host" -P "$mariadb_port" -u "$MYSQL_USER" -p"$MYSQL_PASSWORD" -e "$test_query"; do
   >&2 echo "MariaDB is unavailable - sleeping"
   sleep 1
 done
->&2 echo "MariaDB is up - executing command"
+>&1 echo "MariaDB is up - executing command"
 
 # apt-get install -y sendmail
 # <wordpress 유저 추가>

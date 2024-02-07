@@ -1,7 +1,7 @@
 CMD = docker compose
 SRC = ./srcs/docker-compose.yml
 
-#export DOCKERVOLUMEPATH="/Users/soohalee/Documents/DockerVolume"
+# export DOCKERVOLUMEPATH="/Users/soohalee/Documents/DockerVolume"
 all :
 	mkdir -p $(DOCKERVOLUMEPATH)/wordpressDB
 	mkdir -p $(DOCKERVOLUMEPATH)/mariadbDB

@@ -16,7 +16,7 @@ services:
     networks:
       - soohlee-network
     volumes:
-      - wordpressDB:/var/www/html
+      - wordpressDB:/var/www/html/wordpress
   wordpress:
     restart: always
     depends_on:
@@ -31,7 +31,7 @@ services:
     networks:
       - soohlee-network
     volumes:
-      - wordpressDB:/var/www/html
+      - wordpressDB:/var/www/html/wordpress
   mariadb:
     restart: always
     build:
@@ -52,14 +52,14 @@ volumes:
       type: none
       # device: /home/soohlee/data/wordpress
       # 개인 놑북일시 로컬볼륨 임시경로
-      device: /Users/soohalee/Documents/DockerVolume/wordpressDB
+      device: $DOCKERVOLUMEPATH/wordpressDB
       o: bind
   mariadbDB:
     driver_opts:
       type: none
       # device: /home/soohlee/data/wordpress
       # 개인 놑북일시 로컬볼륨 임시경로
-      device: /Users/soohalee/Documents/DockerVolume/mariadbDB
+      device: $DOCKERVOLUMEPATH/mariadbDB
       o: bind
 
 networks:

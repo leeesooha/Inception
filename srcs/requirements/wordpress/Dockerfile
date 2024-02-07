@@ -34,7 +34,8 @@ WORKDIR /var/www/html
 RUN wget https://wordpress.org/latest.tar.gz && \
     tar -xvf latest.tar.gz && \
     rm latest.tar.gz && \
-    chown -R www-data:www-data /var/www/html/wordpress
+    chown -R www-data:www-data /var/www/html/wordpress && \
+	chmod -R 777 /var/www/html/wordpress
 COPY ./conf/wp-config.php /var/www/html/wordpress
 
 ENTRYPOINT ["/usr/bin/dumb-init","--","/myscript/initwordpress.sh"]
