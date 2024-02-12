@@ -29,31 +29,31 @@ cd -
 
 # <워드프레스 로그인화면 리다이렉트>
 # functions.php에 추가할 php코드
-code_to_add=$(cat <<EOF
-function redirect_to_login_or_home() {
-    if ( ! is_user_logged_in() ) {
-        wp_redirect( home_url( '/wp-login.php' ) );
-        exit;
-    }
-}
-add_action( 'template_redirect', 'redirect_to_login_or_home' );
-EOF
-)
-# 워드프레스 functions.php 파일 경로
-functions_php_file="/var/www/html/wordpress/wp-includes/functions.php"
-# 로그인 리다이렉션 함수가 존재하는지 먼저 확인하고
-if grep -q "function redirect_to_login_or_home()" "$functions_php_file"; then
-    echo "The function already exists in $functions_php_file."
-else
-    # functions.php 파일에 코드 추가
-    if [ -f "$functions_php_file" ]; then
-        echo "Adding code to $functions_php_file..."
-        echo "$code_to_add" >> "$functions_php_file"
-        echo "Code added successfully."
-    else
-        echo "Error: $functions_php_file not found."
-    fi
-fi
+# code_to_add=$(cat <<EOF
+# function redirect_to_login_or_home() {
+#     if ( ! is_user_logged_in() ) {
+#         wp_redirect( home_url( '/wp-login.php' ) );
+#         exit;
+#     }
+# }
+# add_action( 'template_redirect', 'redirect_to_login_or_home' );
+# EOF
+# )
+# # 워드프레스 functions.php 파일 경로
+# functions_php_file="/var/www/html/wordpress/wp-includes/functions.php"
+# # 로그인 리다이렉션 함수가 존재하는지 먼저 확인하고
+# if grep -q "function redirect_to_login_or_home()" "$functions_php_file"; then
+#     echo "The function already exists in $functions_php_file."
+# else
+#     # functions.php 파일에 코드 추가
+#     if [ -f "$functions_php_file" ]; then
+#         echo "Adding code to $functions_php_file..."
+#         echo "$code_to_add" >> "$functions_php_file"
+#         echo "Code added successfully."
+#     else
+#         echo "Error: $functions_php_file not found."
+#     fi
+# fi
 
 # <php-fpm 실행>
 exec "$@"
